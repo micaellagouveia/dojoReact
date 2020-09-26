@@ -11,6 +11,7 @@ class SessionController {
         throw { message: "Não existe usuário com esse endereço de email" };
       }
 
+      console.log('hellou')
       const isPasswordValid = await bcrypt.compare(
         password,
         user.password_hash
@@ -18,7 +19,7 @@ class SessionController {
 
       if (isPasswordValid) {
         const jwt_token = generateToken(user);
-        return res.header('x-auth-token', jwt_token).json({ message: "Autenticado" });
+        return res.header('x-auth-token', jwt_token).json(user);
       } else {
         throw { message: "Verfique suas credenciais" };
       }

@@ -1,5 +1,6 @@
 import User from "../models/User";
 import generateHash from "../utils/generateHash";
+import generateToken from '../utils/generateToken'
 
 class UserController {
   async create(req, res) {
@@ -11,9 +12,10 @@ class UserController {
         password_hash,
         email,
       });
-      res.json(user);
+      const token = generateToken(user)
+      return res.header('x-auth-token', token).json(user);
     } catch (err) {
-      res.status(400).json({ error: "Não foi possível criar seu usário", err });
+      return res.status(400).json({ error: "Não foi possível criar seu usário", err });
     }
   }
 }
