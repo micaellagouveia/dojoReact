@@ -14,7 +14,7 @@ class ProductController {
     const { userId } = req.params;
     try {
       const products = await Product.find({ user: userId }).populate(
-        "Category"
+        "category"
       );
       return res.json(products);
     } catch {
